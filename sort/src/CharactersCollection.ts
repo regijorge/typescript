@@ -1,7 +1,9 @@
-import { Sortable } from './Sorter'
+import { Sorter } from './Sorter'
 
-export class CharactersCollection implements Sortable {
-  constructor(public data: string) {}
+export class CharactersCollection extends Sorter {
+  constructor(public data: string) {
+    super()
+  }
 
   get length(): number {
     return this.data.length
@@ -21,5 +23,9 @@ export class CharactersCollection implements Sortable {
     characters[rightIndex] = leftHand
 
     this.data = characters.join('')
+  }
+
+  print() {
+    console.log(this.data)
   }
 }
