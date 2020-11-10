@@ -2,6 +2,17 @@ import { User } from './models/User'
 
 const user = new User({ name: 'Jorginho', age: 28 })
 
-user.on('change', () => {})
+user.on('change', () => {
+  console.log('Change number 1')
+})
 
-console.log(user)
+user.on('change', () => {
+  console.log('Change number 2')
+})
+
+user.on('save', () => {
+  console.log('Save something')
+})
+
+user.trigger('change')
+user.trigger('save')
