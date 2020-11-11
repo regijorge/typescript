@@ -7,5 +7,6 @@ console.log(user.get('name'))
 const on = user.on
 const trigger = user.trigger
 
-on('save', () => console.log('saved'))
-trigger('save')
+on('change', () => console.log('user has been changed'))
+
+user.set({ name: 'a new name'})
