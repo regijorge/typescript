@@ -26,10 +26,25 @@ router.post('/login', (req: RequestWithBody, res: Response) => {
   const  { email, password } = req.body
 
   if (email && password && email === 'hi@hi.com' && password === '123') {
-    res.session = { loggedIn: true}
+    req.session = { loggedIn: true}
     res.redirect('/')
   } else {
     res.send('Invalid email or password')
+  }
+})
+
+router.get('/', (req: RequestWithBody, res: Response) => {
+  console.log(req.session.loggedIn)
+  if (req.session && req.session.loggedIn) {
+    res.send(`
+      <div>You are logged in</div>
+      <a href="/logout">Log out</a>
+    `)
+  } else {
+    res.send(`
+      <div>Your are not logged in</div>
+      <a href="/login">Login</a>
+    `)
   }
 })
 
