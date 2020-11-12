@@ -34,7 +34,6 @@ router.post('/login', (req: RequestWithBody, res: Response) => {
 })
 
 router.get('/', (req: RequestWithBody, res: Response) => {
-  console.log(req.session.loggedIn)
   if (req.session && req.session.loggedIn) {
     res.send(`
       <div>You are logged in</div>
@@ -46,6 +45,12 @@ router.get('/', (req: RequestWithBody, res: Response) => {
       <a href="/login">Login</a>
     `)
   }
+})
+
+
+router.get('/logout', (req: RequestWithBody, res: Response) => {
+  req.session = undefined
+  res.redirect('/')
 })
 
 export { router }
