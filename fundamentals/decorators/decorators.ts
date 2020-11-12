@@ -5,19 +5,21 @@ class Boat {
     return `This boats color is ${this.color}`
   }
 
-  @logError
+  @logError('Oops, something wrong is not right')
   pilot(): void {
     throw new Error()
     console.log('swish')
   }
 }
 
-function logError(target: any, key: string, desc: PropertyDescriptor): void {
-  const method = desc.value
+function logError(message: string) {
+  return function(target: any, key: string, desc: PropertyDescriptor): void {
+    const method = desc.value
 
-  try {
-    method()
-  } catch (err) {
-    console.error('Oops, something wrong is not right')
+    try {
+      method()
+    } catch (err) {
+      console.error(message)
+    }
   }
 }
