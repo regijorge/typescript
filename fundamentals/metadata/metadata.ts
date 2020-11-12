@@ -1,9 +1,28 @@
-236. Basics of Metadataimport 'reflect-metadata'
+import 'reflect-metadata'
 
-const plane = {
-  color: 'red'
+@printMetadata
+class Plane {
+  color: string = 'red'
+
+  @markFunction('123')
+  fly():void {
+    console.log('vrrrrrrrr')
+  }
 }
 
-Reflect.defineMetadata('note', 'hi there', plane)
-const note = Reflect.getMetadata('note', plane)
-console.log(note)
+function markFunction (secret: string) {
+  return function(target: Plane, key: string) {
+    Reflect.defineMetadata('secret', secret, target, key)
+  }
+}
+
+const secret = Reflect.getMetadata('secret', Plane.prototype, 'fly')
+console.log(secret)
+
+
+function printMetadata (target: typeof Plane) {
+  for (let key in target.prototype) {
+    const secret = Reflect.getMetadata('secret', target.prototype, key)
+    console.log(secret)
+  }
+}
