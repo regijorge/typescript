@@ -1,8 +1,5 @@
-import { User } from './models/User'
+import { Collection } from './models/Collection'
 
-const user = User.buildUser({ name: 'Jorginho': age: 28 })
+const collection = new Collection('http://localhost:3000/users')
 
-const on = user.on
-on('save', () => console.log('User was saved'))
-
-user.save()
+collection.fetch()
